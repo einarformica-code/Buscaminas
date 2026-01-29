@@ -18,27 +18,37 @@ public class MInesweeper {
 		boolean gameOver = false;
 
 		while (!gameOver) {
-			Functions.showBoard(visible); // Mostramos el tablero actual
 
-			System.out.print("Introduce fila (0-" + (Functions.ROWS - 1) + "): ");
-			int r = sc.nextInt();
-			System.out.print("Introduce columna (0-" + (Functions.COLS - 1) + "): ");
-			int c = sc.nextInt();
+            // Display the current visible board to the player
+            Functions.showBoard(visible);
 
-			if (r < 0 || r >= Functions.ROWS || c < 0 || c >= Functions.COLS) {
-				System.out.println("¡Posición fuera de rango!");
-				continue;
-			}
+            System.out.print("Enter row (0-" + (Functions.ROWS - 1) + "): ");
+            int r = sc.nextInt();
 
-			if (board[r][c] == '*') {
-				System.out.println("💥 ¡BOOM! Pisaste una mina.");
-				Functions.showBoard(board); // Revelamos todo el tablero
-				gameOver = true;
-			} else {
-				visible[r][c] = board[r][c];
-				// Aquí podrías añadir una condición de victoria si despejas todo
-			}
-		}
+            System.out.print("Enter column (0-" + (Functions.COLS - 1) + "): ");
+            int c = sc.nextInt();
+
+            // Check if the input is outside the board limits
+            if (r < 0 || r >= Functions.ROWS || c < 0 || c >= Functions.COLS) {
+                System.out.println("Position out of range!");
+                continue;
+            }
+
+            // If the player hits a mine, the game ends
+            if (board[r][c] == '*') {
+                System.out.println("BOOM! You stepped on a mine.");
+                
+                // Reveal the full board so the player can see where all mines were
+                Functions.showBoard(board);
+                
+                gameOver = true;
+
+            } else {
+                // Reveal the selected cell to the player
+                visible[r][c] = board[r][c];
+
+            }
+        }
 		sc.close();
 
 	}
