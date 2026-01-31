@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Random;
+
 public class Functions {
 
 	public static final int ROWS = 5;
@@ -16,6 +18,26 @@ public class Functions {
 		}
 	}
 
+	// Places a fixed number of mines randomly on the board
+	static void placeMines(char[][] board) {
+
+	    Random rand = new Random();
+	    int placed = 0;
+
+	    // Place mines until reaching the required amount
+	    while (placed < MINES) {
+
+	        int r = rand.nextInt(ROWS); // random row
+	        int c = rand.nextInt(COLS); // random column
+
+	        if (board[r][c] != '*') {   // place only if empty
+	            board[r][c] = '*';
+	            placed++;
+	        }
+	    }
+	}
+
+	
 	// Calculates the number of adjacent mines for each non-mine cell
 	public static void calculateClues(char[][] board) {
 	    for (int row = 0; row < ROWS; row++) {
